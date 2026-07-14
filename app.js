@@ -42,7 +42,9 @@ app.use(limiter);
 //Route link
 app.use("/api/v1", router)
 
-
+app.use((req, res) => {
+    res.status(404).send("Sorry! You already came a wrong location! The page is not found");
+});
 
 
  module.exports = app;
