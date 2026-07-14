@@ -42,4 +42,19 @@ exports.updateProduct = (req, res)=>{
     }
 };
 
+//! Delete product;
+exports.deleteProduct = (req, res)=>{
+
+    try {
+
+        let id = req.params.id
+        // let data = req.body;
+        //let data = {Name:"Mobile", Price: 30000 };
+
+        res.status(200).json({ status: "success", id: id});
+    } catch (error) {
+        res.status(500).json({status:"Error", error: error.toString() });
+    }
+};
+
 
