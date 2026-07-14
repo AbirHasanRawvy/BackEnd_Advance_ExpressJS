@@ -1,4 +1,5 @@
 const express = require("express");
+const router = require("./src/routes/api");
 
 const app = new express();
 
@@ -7,7 +8,7 @@ module.exports = app;
 //Security Middleware;
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
-const xss = require("xss-clean");
+// const xss = require("xss-clean");
 const hpp = require("hpp");
 const cors = require("cors");
 
@@ -20,7 +21,7 @@ dotENV.config();
 
 //!Seciruty Middleware implement
 app.use(helmet());
-app.use(xss());
+// app.use(xss());
 app.use(hpp());
 app.use(cors());
 app.use(express.json({limit: "50mb"}));
@@ -35,6 +36,11 @@ app.use(limiter);
 
 
 //!data base work;
+
+
+
+//Route link
+app.use("/api/v1", router)
 
 
 
