@@ -9,6 +9,26 @@ const PORT = 5000;
 
 app.use(express.json());
 
+//! Application type middle ware;
+// Runs for every request;
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+
+//Rout middleware: for a spacipic request.
+const isAuthenticated = (req, res, next) => {
+    const token = req.headers("authorization");
+    if(token === "createProfile"){
+        next();
+    }else{
+        res.status(401).json({
+            message: "You are not authorized",
+        });
+    }
+};
+
+
 //! Multer setup for file uploading;
 const storage = multer.diskStorage({
     destination: (req, File, cb) => {
@@ -20,8 +40,8 @@ const storage = multer.diskStorage({
 });
 const upload = multer ({ storage });
 
-//! Create Profile Data;
-app.post("/profile", upload.single("Profile image: "), (req, res) => {
+//! Create Profile Data with file;
+app.post("/profile", isAuthenticated, upload.single("Profile image: "), (req, res) => {
     const {username} = req.body;
     const fileInfo = req.file;
     //! database handle;
