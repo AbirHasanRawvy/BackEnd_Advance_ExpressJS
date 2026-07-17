@@ -11,7 +11,7 @@ app.use(express.json());
 
 //! Application type middle ware;
 // Runs for every request;
-app.use((req, res, next) => {
+app.use((req, res, next) => {//! here app.use means work for all the aplication;
     console.log(`${req.method} ${req.url}`);
     next();
 });
